@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DataService } from './services/data.service';
+import { TaskService } from './services/task.service';
 import { LandingComponent } from './components/landing/landing.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
@@ -26,7 +26,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatToolbarModule,
   ],
-  providers: [DataService],
+  providers: [TaskService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

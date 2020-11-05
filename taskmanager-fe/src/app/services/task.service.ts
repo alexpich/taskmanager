@@ -6,7 +6,7 @@ import { Task } from '../models/Task';
 @Injectable({
   providedIn: 'root',
 })
-export class DataService {
+export class TaskService {
   tasks: Task[];
   data: Observable<any>;
 
