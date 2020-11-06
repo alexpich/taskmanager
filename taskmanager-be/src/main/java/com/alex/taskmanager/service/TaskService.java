@@ -17,8 +17,8 @@ public class TaskService {
 	@Autowired
 	private TaskRepository taskRepo;
 
-	public void createTask(Task task) {
-		taskRepo.save(task);
+	public Task createTask(Task task) {
+		return taskRepo.save(task);
 	}
 
 	public List<Task> getAllTasks() {
@@ -41,7 +41,7 @@ public class TaskService {
 		}
 	}
 
-	public void updateTask(String id, Task newTask) throws TaskCollectionException {
+	public Task updateTask(String id, Task newTask) throws TaskCollectionException {
 		Optional<Task> taskWithId = taskRepo.findById(id);
 
 		if (taskWithId.isPresent()) {
@@ -50,7 +50,7 @@ public class TaskService {
 
 			// Ensure that newTask doesn't get added as a new document
 			taskToUpdate.setId(id);
-			taskRepo.save(taskToUpdate);
+			return taskRepo.save(taskToUpdate);
 		} else {
 			throw new TaskCollectionException(TaskCollectionException.NotFoundException(id));
 		}

@@ -6,6 +6,7 @@ import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alex.taskmanager.exception.TaskCollectionException;
@@ -27,42 +30,47 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 
-	@PostMapping("/task")
-	public ResponseEntity<String> createTask(@RequestBody Task task) {
-		try {
-			taskService.createTask(task);
-			return new ResponseEntity("Successfully added task " + task.getTitle(), HttpStatus.OK);
-		} catch (ConstraintViolationException e) {
-			return new ResponseEntity(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
-		}
+	@PostMapping(path = "/task")
+	public Task createTask(@RequestBody Task task) {
+		return taskService.createTask(task);
 	}
 
 	@GetMapping("/task")
-	public ResponseEntity<String> getAllTasks() {
+	public List<Task> getAllTasks() {
 		List<Task> tasks = taskService.getAllTasks();
-		return new ResponseEntity(tasks, tasks.size() > 0 ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+		return tasks;
 	}
 
 	@DeleteMapping("/task/{id}")
-	public ResponseEntity deleteTaskById(@PathVariable("id") String id) {
+	public ResponseEntity<String> deleteTaskById(@PathVariable("id") String id) {
 		try {
 			taskService.deleteTaskById(id);
-			return new ResponseEntity("Sucessfully deleted task with id " + id, HttpStatus.OK);
+			return new ResponseEntity<>("Sucessfully deleted task with id " + id, HttpStatus.OK);
 		} catch (TaskCollectionException e) {
-			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
 
+//	@PutMapping("/task/{id}")
+//	public ResponseEntity updateById(@PathVariable("id") String id, @RequestBody Task newTask) {
+//		try {
+//			taskService.updateTask(id, newTask);
+//			return new ResponseEntity("Successfully updated task with id " + id, HttpStatus.OK);
+//		} catch (ConstraintViolationException e) {
+//			return new ResponseEntity(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+//		} catch (TaskCollectionException e) {
+//			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+//		}
+//	}
 	@PutMapping("/task/{id}")
-	public ResponseEntity updateById(@PathVariable("id") String id, @RequestBody Task newTask) {
-		try {
-			taskService.updateTask(id, newTask);
-			return new ResponseEntity("Successfully updated task with id " + id, HttpStatus.OK);
-		} catch (ConstraintViolationException e) {
-			return new ResponseEntity(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
-		} catch (TaskCollectionException e) {
-			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-		}
+	public Task updateById(@PathVariable("id") String id, @RequestBody Task newTask) {
+			try {
+				return taskService.updateTask(id, newTask);
+			} catch (TaskCollectionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return newTask;
 	}
 
 }
