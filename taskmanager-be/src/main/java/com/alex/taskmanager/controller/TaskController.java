@@ -51,23 +51,11 @@ public class TaskController {
 		}
 	}
 
-//	@PutMapping("/task/{id}")
-//	public ResponseEntity updateById(@PathVariable("id") String id, @RequestBody Task newTask) {
-//		try {
-//			taskService.updateTask(id, newTask);
-//			return new ResponseEntity("Successfully updated task with id " + id, HttpStatus.OK);
-//		} catch (ConstraintViolationException e) {
-//			return new ResponseEntity(e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
-//		} catch (TaskCollectionException e) {
-//			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-//		}
-//	}
 	@PutMapping("/task/{id}")
 	public Task updateById(@PathVariable("id") String id, @RequestBody Task newTask) {
 			try {
 				return taskService.updateTask(id, newTask);
 			} catch (TaskCollectionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return newTask;
