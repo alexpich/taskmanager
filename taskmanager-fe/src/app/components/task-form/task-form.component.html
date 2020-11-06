@@ -1,0 +1,24 @@
+<h2>Add Task</h2>
+<form class="task-form">
+    <mat-form-field>
+        <mat-label>Task title</mat-label>
+        <input matInput #title>
+    </mat-form-field>
+    <br>
+    <!-- TODO: Only show this form when editing, not when adding. -->
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select #status>
+            <mat-option value="In Progress">In Progress</mat-option>
+            <mat-option value="Stuck">Stuck</mat-option>
+            <mat-option value="Done">Done</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Category</mat-label>
+        <input matInput #category>
+    </mat-form-field>
+    <br>
+</form>
+<button mat-raised-button color="primary" (click)="addTask(title.value, status.value, category.value)">Add</button>

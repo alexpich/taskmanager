@@ -17,4 +17,9 @@ export class TasksComponent implements OnInit {
       this.tasks = tasks;
     });
   }
+
+  onNewTask(task: Task) {
+    console.log(task);
+    this.tasks.push(task);
+  }
 }

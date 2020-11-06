@@ -1,20 +1,9 @@
+<app-task-form (newTask)="onNewTask($event)"></app-task-form>
 <h2>Tasks</h2>
-<!-- <mat-card *ngFor="let task of tasks">
-    <mat-title>{{ task.title}}</mat-title>
-    <mat-card-content>
-        <p>{{ task.status }}</p>
-        <p>{{ task.category }} </p>
-    </mat-card-content>
-</mat-card> -->
-
-<!-- <div *ngFor="let task of tasks">
-    <p>{{ task.title }}</p>
-    <p>{{ task.status }}</p>
-    <p>{{ task.category }} </p>
-</div> -->
-
-<mat-grid-list cols="3" rowHeight="30px" *ngFor="let task of tasks">
-    <mat-grid-tile>{{ task.title }}</mat-grid-tile>
-    <mat-grid-tile>{{ task.status }}</mat-grid-tile>
-    <mat-grid-tile>{{ task.category }}</mat-grid-tile>
+<mat-grid-list cols="3" rowHeight="30px" *ngFor="let task of tasks" class="task-container">
+    <mat-grid-tile class="task-tile">
+        <div class="task-title">{{ task.title }}</div>
+    </mat-grid-tile>
+    <mat-grid-tile class="task-tile">{{ task.status }}</mat-grid-tile>
+    <mat-grid-tile class="task-tile">{{ task.category }}</mat-grid-tile>
 </mat-grid-list>

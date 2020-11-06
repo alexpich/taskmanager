@@ -4,6 +4,12 @@ import { Observable } from 'rxjs';
 
 import { Task } from '../models/Task';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  }),
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,5 +23,10 @@ export class TaskService {
   getTasks(): Observable<Task[]> {
     console.log('Fetching tasks.');
     return this.http.get<Task[]>(this.tasksUrl);
+  }
+
+  saveTask(task: Task): Observable<Task> {
+    console.log('Saving task.');
+    return this.http.post<Task>(this.tasksUrl, task, httpOptions);
   }
 }
