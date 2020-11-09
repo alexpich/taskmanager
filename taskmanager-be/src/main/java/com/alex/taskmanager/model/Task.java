@@ -21,7 +21,6 @@ public class Task {
 	private String category;
 
 	public Task() {
-
 	}
 
 	public Task(String id, @NotNull(message = "Task title cannot be null") String title,
